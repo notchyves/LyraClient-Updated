@@ -2,8 +2,6 @@
 
 #include "ModuleManager.hpp"
 
-#include "Modules/FriendSystem/FriendSystem.hpp"
-
 #include "Modules/Zoom.hpp"
 #include "Modules/ModMenu.hpp"
 #include "Modules/FPS.hpp"
@@ -41,7 +39,6 @@
 #include "Modules/Profiles.hpp"
 #include "Modules/hivehelper/helper.hpp"
 #include "Modules/CustomChat.hpp"
-#include "Modules/SelfDestruct/SelfDestruct.hpp"
 
 ModuleManager moduleMgr;
 
@@ -125,8 +122,4 @@ void ModuleManager::EnabledOnStart() {
         }
     }
 
-}
-
-void ModuleManager::HeartBeatFriends() {
-    FriendSys.HeartBeat();
 }
