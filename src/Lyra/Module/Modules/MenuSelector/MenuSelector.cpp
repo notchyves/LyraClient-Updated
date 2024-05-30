@@ -3,7 +3,6 @@
 #include "../../../../Utils/RenderUtils.h"
 #include "../../ModuleManager.hpp"
 #include "../Profiles.hpp"
-#include "../FriendSystem/FriendSystem.hpp"
 #include <filesystem>
 
 float blur = 0;
@@ -11,8 +10,6 @@ float blur = 0;
 float ModsSizeX = 0;
 
 float ProfilesSizeY = 0;
-
-float FriendsSizeY = 0;
 
 float ResetSizeY = 0;
 
@@ -63,8 +60,6 @@ void MenuSelector::onRender(const RenderEvent &event) {
         ModsSizeX = Utils::animate(bSize*3+4*gap, ModsSizeX, MC::Deltatime * 0.15 * animationSpeed);
         IconSize = Utils::animate(bSize*3/1.5, IconSize, MC::Deltatime * .15 * animationSpeed);
         if (IconSize >= (bSize*3/1.5-10)) {
-            FriendsSizeY = Utils::animate(bSize, FriendsSizeY, MC::Deltatime * .15 * animationSpeed);
-            if (FriendsSizeY >= bSize-5) ProfilesSizeY = Utils::animate(bSize, ProfilesSizeY, MC::Deltatime * .15 * animationSpeed);
             if (ProfilesSizeY >= bSize-5) ResetSizeY = Utils::animate(bSize, ResetSizeY, MC::Deltatime * .15 * animationSpeed);
         }
     }
@@ -72,9 +67,7 @@ void MenuSelector::onRender(const RenderEvent &event) {
         blur = Utils::animate(-1, blur, MC::Deltatime * 0.15 * animationSpeed);
         ModsSizeX = Utils::animate(-(bSize*3+4*gap), ModsSizeX, MC::Deltatime * 0.15 * animationSpeed);
         IconSize = Utils::animate(-bSize*3/1.5, IconSize, MC::Deltatime * .15 * animationSpeed);
-        FriendsSizeY = Utils::animate(-bSize, FriendsSizeY, MC::Deltatime * .15 * animationSpeed);
-        ProfilesSizeY = ResetSizeY = FriendsSizeY;
-        if (blur <= 0 || ModsSizeX <= 0 || ProfilesSizeY <= 0 || FriendsSizeY <= 0 || ResetSizeY <= 0){
+        if (blur <= 0 || ModsSizeX <= 0 || ProfilesSizeY <= 0 || ResetSizeY <= 0){
             eventMgr.removeListener(this);
             if (SDK::TopScreen.rfind("hud_screen") != std::string::npos) {
                 if (SDK::clientInstance) {
@@ -89,9 +82,6 @@ void MenuSelector::onRender(const RenderEvent &event) {
     ImVec2 ModsPos(SC.x-ModsSizeX/2, SC.y-bSize-gap/2);
     ImVec2 ModsSize(ModsSizeX, bSize);
 
-    ImVec2 FriendsPos(SC.x-gap-bSize/2-bSize, SC.y+gap/2);
-    ImVec2 FriendsSize(bSize, FriendsSizeY);
-
     ImVec2 ProfilesPos(SC.x-bSize/2, SC.y+gap/2);
     ImVec2 ProfilesSize(bSize, ProfilesSizeY);
 
@@ -105,10 +95,6 @@ void MenuSelector::onRender(const RenderEvent &event) {
         if(ModsSizeX > 0){
             RenderUtils::fillRect(ModsPos, ModsSize, Utils::IsMouseOverRectangle(Utils::mousepos, ModsPos, ModsSize) ? accent : ImColor(.0f, .0f, .0f, .75f), Constraints::RoundingCalc(ImVec2(ModsSizeX, bSize),.5));
             RenderUtils::RenderTextWithOutline(ModsPos, ModsSize, IM_COL32_WHITE, "MOD MENU", ModsSize.y / 100, IM_COL32_WHITE, .5, 2);
-        }
-        if(FriendsSizeY > 0){
-            RenderUtils::fillRect(FriendsPos, FriendsSize, Utils::IsMouseOverRectangle(Utils::mousepos, FriendsPos, FriendsSize) ? accent : ImColor(.0f, .0f, .0f, .75f), Constraints::RoundingCalc(ImVec2(bSize, FriendsSizeY), .5));
-            RenderUtils::RenderImage(ImVec2(FriendsPos.x, FriendsPos.y), ImVec2(FriendsSize.x, FriendsSize.y), "Lyra\\Assets\\friends_menu.png", IM_COL32_WHITE);
         }
         if(ProfilesSizeY > 0){
             RenderUtils::fillRect(ProfilesPos, ProfilesSize, Utils::IsMouseOverRectangle(Utils::mousepos, ProfilesPos, ProfilesSize) ? accent : ImColor(.0f, .0f, .0f, .75f), Constraints::RoundingCalc(ImVec2(bSize, ProfilesSizeY), .5));
@@ -127,10 +113,6 @@ void MenuSelector::onRender(const RenderEvent &event) {
             if (Utils::IsMouseOverRectangle(Utils::mousepos, ProfilesPos, ProfilesSize)) {
                 LoadUI = true;
                 this->hideUI = true;
-            }
-            if (Utils::IsMouseOverRectangle(Utils::mousepos, FriendsPos, FriendsSize)) {
-                toggle();
-                FriendSys.toggle();
             }
             if (Utils::IsMouseOverRectangle(Utils::mousepos, ResetPos, ResetSize)) {
                 // Do this thing pls
