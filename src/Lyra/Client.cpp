@@ -91,7 +91,6 @@ void Client::initialize(){
         "DefaultPlayerHead",
         "hivehelper",
         "Partner",
-        "friends_menu",
         "load_profile",
         "reset_config"
     };
@@ -122,8 +121,4 @@ void Client::UnInitialize() {
     kiero::shutdown();
     MH_DisableHook(MH_ALL_HOOKS);
     MH_Uninitialize();
-}
-
-void Client::HeartBeatFriend() {
-    moduleMgr.HeartBeatFriends();
 }
