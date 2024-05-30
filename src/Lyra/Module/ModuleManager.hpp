@@ -29,8 +29,6 @@ public:
 
     void EnabledOnStart();
 
-    void HeartBeatFriends();
-
 private:
     bool initialized = false;
     std::map<std::string, std::shared_ptr<Module>> mods;
