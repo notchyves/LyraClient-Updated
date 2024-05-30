@@ -28,7 +28,6 @@ void Notif::onEnable() {
     InitTime = std::chrono::high_resolution_clock::now();
     notifs.push_back("Lyra Client has been launched.");
     notifs.push_back("Press "+Utils::GetKeyAsString(Settings::getSettingByName<int>("Mod Menu", "KEYBIND")->value, true)+" to open menu in-game.");
-    notifs.push_back("Press "+Utils::GetKeyAsString(Settings::getSettingByName<int>("Mod Menu", "Friend List Keybind")->value, true)+" to open friend list in-game.");
 }
 
 void Notif::onTick(const TickEvent& event) {
