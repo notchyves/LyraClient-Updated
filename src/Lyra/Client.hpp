@@ -22,5 +22,4 @@ public:
     static void initialize();
     static inline bool disable;
     static void UnInitialize();
-    static void HeartBeatFriend();
 };
