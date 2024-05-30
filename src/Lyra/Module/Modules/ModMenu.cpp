@@ -133,13 +133,11 @@ void ModMenu::InitModuleSettings() {
 	Settings::addSetting<bool>("Mod Menu", "DISABLE ANIMATIONS", false, true);
 	Settings::addSetting<float>("Mod Menu", "BLUR INTENISTY", 15, true);
     Settings::addSetting<bool>("Mod Menu", "DISABLE VSYNC", false, true);
-    Settings::addSetting<int>("Mod Menu", "Friend List Keybind", 77, true);
     Settings::addSetting<bool>("Mod Menu", "DISABLE SHADOWS", false, true);
     Settings::addSetting<bool>("Mod Menu", "USE MONJANGLES HUD", false, true);
     Settings::addSetting<bool>("Mod Menu", "TEXT SHADOWS", false, true);
     Settings::addSetting<std::vector<float>>("Mod Menu", "TEXT SHADOW COLOR", {0.3f, 0.3f, 0.3f, 1.0f}, true);
 
-    this->SettingsList["USER INTERFACE"]["Friend List Keybind"] = "keybind";
 	this->SettingsList["USER INTERFACE"]["KEYBIND"] = "keybind";
 	this->SettingsList["USER INTERFACE"]["ACCENT COLOR"] = "colorpicker";
 	this->SettingsList["USER INTERFACE"]["ANIMATION SPEED"] = "slider-0.5-5";
