@@ -4,7 +4,6 @@
 #include "../../../Module/ModuleManager.hpp"
 #include "../../../Event/EventManager.hpp"
 #include "../../../../Utils/RenderUtils.h"
-#include "../../../Module/Modules/FriendSystem/FriendSystem.hpp"
 #include "../../../Module/Modules/MenuSelector/MenuSelector.hpp"
 #include "../../../SDK/SDK.hpp"
 #include "../../../Module/Modules/Notif.hpp"
@@ -45,7 +44,7 @@ void KeyHook::keyCallback(int key, bool state)
 	KeyEvent event = KeyEvent(key, state);
 	if (key == Settings::getSettingByName<int>("Mod Menu", "KEYBIND")->value or key == VK_ESCAPE)
 		if (RenderUtils::CloseMenu) {
-			if (!state and !FriendSys.enabled) {
+			if (!state) {
 				if (key == VK_ESCAPE) {
 					moduleMgr.getModuleG("Mod Menu")->setEnabled(false);
 					if (menuSelector.enabled) {
@@ -64,23 +63,7 @@ void KeyHook::keyCallback(int key, bool state)
 		else {
 			RenderUtils::CloseMenu = true;
 		}
-	if (!moduleMgr.getModuleG("Mod Menu")->isEnabled() and !menuSelector.enabled and (key == Settings::getSettingByName<int>("Mod Menu", "Friend List Keybind")->value or key == VK_ESCAPE) and !state and !RenderUtils::anyActivetextbox() and !RenderUtils::anyKeybindActive()) {
-        std::string badthing = "�";
-        if(SDK::clientInstance && SDK::clientInstance->getLocalPlayer()) Logger::info(removeCharFromString(base64::to_base64(Utils::removeColorCodes(SDK::clientInstance->getLocalPlayer()->playerName)), *badthing.c_str()));
-        if (key == VK_ESCAPE) {
-			FriendSys.enabled = false;
-            FriendSys.onDisable();
-		}
-		else {
-            std::thread friendThread([]() {
-                moduleMgr.HeartBeatFriends();
-
-            });
-            friendThread.detach();
-
-			FriendSys.toggle();
-		}
-	}
+	
 	eventMgr.onKey(event);
 	if (!event.isCancelled())
 		func_original(key, state);
